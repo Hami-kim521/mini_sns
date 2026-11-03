@@ -36,6 +36,9 @@ h2.sec a { font-size: 13px; color: var(--primary); font-weight: 500; }
 
 .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 18px; }
 .slider::-webkit-scrollbar { display: none; }
+.slider { touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; cursor: grab; user-select: none; }
+.slider.dragging { cursor: grabbing; scroll-snap-type: none; }
+.slider a { -webkit-user-drag: none; }
 .slide { flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; }
 .slide > * { height: 100%; }
 .dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
