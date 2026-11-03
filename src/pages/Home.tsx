@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Slider from '../components/Slider'
 import { formatDate, isClosed, supabase, type News, type Post } from '../lib/supabase'
 
 export default function Home() {
@@ -28,15 +29,15 @@ export default function Home() {
 
         <h2 className="sec">진행 중인 스터디 <Link to="/posts?type=recruit">전체보기</Link></h2>
         {banners.length === 0 ? <p className="empty">모집 중인 스터디가 없어요</p> : (
-          <div className="banner-row">
-            {banners.map((p) => (
-              <Link key={p.id} to={`/posts/${p.id}`} className="banner">
+          <Slider>
+            {banners.map((p, i) => (
+              <Link key={p.id} to={`/posts/${p.id}`} className="banner" style={i % 2 ? { background: 'linear-gradient(135deg, #0f172a, #334155 60%, #5e6ad2)' } : undefined}>
                 <small>~ {formatDate(p.deadline!)} 마감</small>
                 <strong>{p.title}</strong>
                 <small>자세히 보기 →</small>
               </Link>
             ))}
-          </div>
+          </Slider>
         )}
 
         <h2 className="sec">최근 게시글 <Link to="/posts">더보기</Link></h2>
@@ -50,14 +51,15 @@ export default function Home() {
         </div>
 
         <h2 className="sec">요즘 AI 핫이슈 <Link to="/news">더보기</Link></h2>
-        <div className="news-mini">
+        <Slider interval={5000}>
           {news.map((n) => (
-            <a key={n.id} href={n.url ?? '#'} target="_blank" rel="noreferrer">
+            <a key={n.id} className="news-mini" href={n.url ?? '#'} target="_blank" rel="noreferrer">
               <span className="chip">{n.category}</span>
-              <p style={{ marginTop: 8 }}>{n.title}</p>
+              <p>{n.title}</p>
+              <small>{n.source}</small>
             </a>
           ))}
-        </div>
+        </Slider>
       </div>
     </>
   )

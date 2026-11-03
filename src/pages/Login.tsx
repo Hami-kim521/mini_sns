@@ -39,7 +39,7 @@ export default function Login() {
     setBusy(false)
   }
 
-  const oauth = async (provider: 'google' | 'github' | 'kakao') => {
+  const oauth = async (provider: 'google' | 'kakao') => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: { redirectTo: window.location.origin + import.meta.env.BASE_URL },
@@ -73,7 +73,6 @@ export default function Login() {
       <div className="divider">다른 방법으로 로그인</div>
       <div className="sns">
         <button onClick={() => oauth('google')}>Google로 계속하기</button>
-        <button className="gh" onClick={() => oauth('github')}>GitHub로 계속하기</button>
         <button className="kk" onClick={() => oauth('kakao')}>카카오로 계속하기</button>
       </div>
       <button className="link" onClick={() => nav('/')}>둘러보기</button>
